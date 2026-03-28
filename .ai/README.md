@@ -26,11 +26,12 @@ This `.ai/` folder contains documentation specifically for AI agents working on 
 
 ## Key Reminders
 
-**This is a NATIVE JAVA library** (not Spring Boot!):
+**This is a NATIVE JAVA EXCEPTION library** (not Spring Boot!):
 - No Spring dependencies allowed
 - No framework-specific code
 - Pure Java 17+ only
-- Static utility methods only
+- Exception classes with proper inheritance
+- Immutable design (all fields final)
 
 ## Pre-Work Requirements
 
@@ -45,9 +46,10 @@ Before finishing work, verify:
 1. All tests pass (`mvn test`)
 2. Coverage is 90%+ (`mvn jacoco:report`)
 3. No compilation errors (`mvn clean compile`)
-4. Follows utility class pattern (final class, private constructor, static methods)
+4. Follows exception class pattern (extends BusinessException, immutable, Serializable)
 5. Thread-safe implementation
 6. Comprehensive JavaDoc added
+7. Objects.requireNonNull() used for constructor validation
 
 ## Common Commands
 

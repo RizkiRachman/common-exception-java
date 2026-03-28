@@ -1,13 +1,13 @@
-# SKILLS.md for common-utils-java
+# SKILLS.md for common-exception-java
 
 ## AI Agent Skills and Capabilities
 
-This document outlines the skills and capabilities of the AI coding assistant for this native Java utility library.
+This document outlines the skills and capabilities of the AI coding assistant for this native Java exception library.
 
 ### Core Skills
 
 - **Java Programming**: Expert knowledge of Java 17+with modern features including records, sealed classes, pattern matching, text blocks, and switch expressions
-- **Utility Class Design**: Proficient in creating thread-safe, immutable utility classes with static methods
+- **Exception Class Design**: Proficient in creating exception hierarchies with proper inheritance
 - **Maven Build System**: Full understanding of Maven lifecycle, dependencies, plugins, and deployment
 - **Testing**: Comprehensive knowledge of unit testing with JUnit 5, parameterized tests, and mocking with Mockito
 - **Code Coverage**: Expertise in JaCoCo configuration and achieving 90%+ coverage requirements
@@ -16,19 +16,23 @@ This document outlines the skills and capabilities of the AI coding assistant fo
 
 ### Specialized Skills
 
-- **String Utilities**: Implementation of string manipulation, validation, masking, and formatting
-- **Pagination**: Design of pagination classes (Page, Pageable)for database query results
-- **Validation**: Creation of validation utilities for email, phone, URL, UUID, and other formats
-- **Null Safety**: Defensive programming patterns and null-safe utility methods
-- **Immutable Design**: Building immutable classes with defensive copying
-- **Regex Patterns**: Efficient use of compiled patterns for validation and parsing
-- **ID Generation**: Implementation of fast ID generation and UUID utilities
+- **Exception Design**: Creating meaningful exception hierarchies for business logic
+- **Error Response**: Building standardized error response objects (ErrorResponse)
+- **HTTP Status Mapping**: Mapping exceptions to appropriate HTTP status codes
+- **Exception Handling**: Best practices for catching, wrapping, and re-throwing exceptions
+- **Validation Exceptions**: Multi-field validation error handling
+- **Rate Limiting**: Rate limit exception patterns with retry-after support
+- **Builder Pattern**: ErrorResponse.Builder for flexible error response construction
+- **Factory Methods**: Static factory methods for common error responses
+- **Immutability**: Designing immutable exception classes with final fields
+- **Null Safety**: Defensive programming with Objects.requireNonNull()
+- **Serializable**: Proper implementation of Serializable for distributed systems
 
 ### Development Practices
 
 - **Clean Code**: Writing maintainable, readable, and well-documented code
 - **JavaDoc**: Comprehensive documentation with `@param`, `@return`, `@throws`, and examples
-- **Design Patterns**: Application of appropriate patterns (Utility, Builder, Factory, Singleton)
+- **Design Patterns**: Application of appropriate patterns (Exception Hierarchy, Builder, Factory)
 - **SOLID Principles**: Adherence to Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion
 - **TDD**: Test-Driven Development with comprehensive test coverage
 - **Code Reviews**: Understanding of code review best practices and common anti-patterns
@@ -89,7 +93,7 @@ This document outlines the skills and capabilities of the AI coding assistant fo
 ### Learning and Adaptation
 
 - **Java Evolution**: Staying current with Java LTS releases and new features
-- **Library Design**: Researching best practices for utility library design
+- **Library Design**: Researching best practices for exception library design
 - **Testing Patterns**: Learning new testing techniques and patterns
 - **Problem Solving**: Analytical thinking and debugging complex issues
 - **Adaptation**: Quickly adapting to new requirements while maintaining backward compatibility

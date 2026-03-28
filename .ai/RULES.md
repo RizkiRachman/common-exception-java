@@ -1,8 +1,8 @@
-# AI Rules for common-utils-java
+# AI Rules for common-exception-java
 
 ## AI Agent Rules and Guidelines
 
-This document contains rules and guidelines that AI coding assistants must follow when working on this **native Java utility library** (not Spring Boot).
+This document contains rules and guidelines that AI coding assistants must follow when working on this **native Java exception library** (not Spring Boot).
 
 ### Security and Privacy Rules
 
@@ -27,10 +27,10 @@ This document contains rules and guidelines that AI coding assistants must follo
 #### Best Practices for Native Java
 - **ALWAYS follow** the patterns and conventions outlined in `AGENTS.md`
 - **NEVER add Spring dependencies** - this is a pure Java library
-- **USE final classes** with private constructors for utility classes
-- **IMPLEMENT thread-safe** code using `ThreadLocal` where needed
-- **AVOID mutable state** in utility classes
-- **USE static methods** exclusively for utility functionality
+- **MAKE all exception classes final** or properly inheritable
+- **IMPLEMENT Serializable** for all exception classes
+- **USE immutable design** - all fields must be private final
+- **USE Objects.requireNonNull()** for constructor validation
 - **WRITE comprehensive JavaDoc** for all public methods
 
 #### Library-Specific Rules
@@ -38,15 +38,16 @@ This document contains rules and guidelines that AI coding assistants must follo
 - **MINIMIZE dependencies** - only JUnit and Mockito for testing
 - **ENSURE backward compatibility** - don't break existing APIs
 - **USE Java 17+ features** appropriately (records, pattern matching, etc.)
-- **DOCUMENT time complexity** for performance-critical methods
+- **EXTEND BusinessException** for new business-related exceptions
 
 ### Development Workflow Rules
 
 #### File Management
-- **ONLY edit** files in `src/main/java/com/dev/common/` and `src/test/java/`
+- **ONLY edit** files in `src/main/java/com/dev/common/exception/` and `src/test/java/`
 - **DO NOT modify** `pom.xml` unless explicitly requested
 - **AVOID creating** unnecessary files or directories
-- **FOLLOW package structure**: `com.dev.common.{utility}`
+- **FOLLOW package structure**: `com.dev.common.exception`
+- **NEVER commit** `target/` folder (already in .gitignore)
 
 #### Testing (CRITICAL)
 - **MUST achieve 90%+ code coverage** (enforced by JaCoCo)
@@ -56,18 +57,41 @@ This document contains rules and guidelines that AI coding assistants must follo
 - **TEST thread-safety** where applicable
 - **USE parameterized tests** for multiple test cases
 
-### Utility Class Patterns
+### Exception Class Patterns
 
-#### Required Structure
+#### BusinessException Structure
 ```java
-public final class XxxUtils {
-    private XxxUtils() {
-        throw new AssertionError("Utility class should not be instantiated");
+public class BusinessException extends RuntimeException implements Serializable {
+    private final String errorCode;
+    private final int httpStatus;
+    private final String errorMessage;
+    
+    public BusinessException(String errorCode, String errorMessage) {
+        super(errorMessage);
+        this.errorCode = Objects.requireNonNull(errorCode, "errorCode must not be null");
+        this.errorMessage = Objects.requireNonNull(errorMessage, "errorMessage must not be null");
+        this.httpStatus = 500;
     }
     
-    // Static methods only
-    public static String method(String input) {
-        // implementation
+    // Getters only, no setters (immutable)
+}
+```
+
+#### Specialized Exception Structure
+```java
+public class CustomException extends BusinessException implements Serializable {
+    private static final String ERROR_CODE = "CUSTOM_ERROR";
+    private static final int HTTP_STATUS = 400;
+    
+    private final String customField;
+    
+    public CustomException(String message, String customField) {
+        super(ERROR_CODE, message, HTTP_STATUS);
+        this.customField = Objects.requireNonNull(customField);
+    }
+    
+    public String getCustomField() {
+        return customField;
     }
 }
 ```
@@ -75,17 +99,17 @@ public final class XxxUtils {
 #### Documentation Requirements
 ```java
 /**
- * Brief description of what the method does.
+ * Brief description of when this exception is thrown.
  *
  * <p>Detailed explanation with examples:</p>
- * <pre>
- * ExampleUtils.method("input") // returns "output"
- * </pre>
+ * <pre>{@code
+ * throw new CustomException("message", "value");
+ * }</pre>
  *
- * @param input description of parameter
- * @return description of return value
- * @throws IllegalArgumentException when validation fails
- * @since 1.0.0
+ * @author Dev Team
+ * @version 1.0
+ * @since 1.0
+ * @see BusinessException
  */
 ```
 
