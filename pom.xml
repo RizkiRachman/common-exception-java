@@ -121,7 +121,7 @@
                 </executions>
             </plugin>
 
-            <!-- Test Report Generator -->
+            <!-- Exec - Generate HTML Test Report -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -134,35 +134,13 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>bash</executable>
+                            <executable>python3</executable>
                             <arguments>
-                                <argument>-c</argument>
-                                <argument><![CDATA[
-                                    if [ -d target/surefire-reports ]; then
-                                        echo "🔍 Parsing test results...";
-                                        total=$(find target/surefire-reports -name "*.xml" -exec grep -o '<testcase' {} + | wc -l | tr -d ' ');
-                                        failures=$(find target/surefire-reports -name "*.xml" -exec grep -o 'failures="[^0]' {} + | wc -l | tr -d ' ');
-                                        errors=$(find target/surefire-reports -name "*.xml" -exec grep -o 'errors="[^0]' {} + | wc -l | tr -d ' ');
-                                        skipped=$(find target/surefire-reports -name "*.xml" -exec grep -o 'skipped="[^0]' {} + | wc -l | tr -d ' ');
-                                        passed=$((total - failures - errors - skipped));
-                                        echo "";
-                                        echo "📊 Test Summary:";
-                                        echo "   Total Tests: $total";
-                                        echo "   Passed: $passed";
-                                        echo "   Failed: $failures";
-                                        echo "   Errors: $errors";
-                                        echo "   Skipped: $skipped";
-                                        if [ $total -gt 0 ]; then
-                                            pass_rate=$(echo "scale=1; ($passed * 100) / $total" | bc 2>/dev/null || echo "N/A");
-                                            echo "   Pass Rate: ${pass_rate}%";
-                                        fi
-                                        echo "";
-                                        echo "✅ Tests completed successfully!";
-                                    else
-                                        echo "⚠️  No test reports found";
-                                    fi
-                                ]]></argument>
+                                <argument>generate-test-report.py</argument>
                             </arguments>
+                            <successCodes>
+                                <successCode>0</successCode>
+                            </successCodes>
                         </configuration>
                     </execution>
                 </executions>
