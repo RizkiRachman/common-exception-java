@@ -1,0 +1,6 @@
+com/dev/common/exception/UnauthorizedExceptionTest.class
+com/dev/common/exception/BusinessExceptionTest.class
+com/dev/common/exception/ErrorResponseTest.class
+com/dev/common/exception/RateLimitExceededExceptionTest.class
+com/dev/common/exception/ResourceNotFoundExceptionTest.class
+com/dev/common/exception/ValidationExceptionTest.class

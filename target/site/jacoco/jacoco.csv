@@ -1,0 +1,9 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Common Exception Java,com.dev.common.exception,BusinessException,0,88,0,0,0,20,0,7,0,7
+Common Exception Java,com.dev.common.exception,ValidationException.ValidationError,0,36,0,0,0,7,0,4,0,4
+Common Exception Java,com.dev.common.exception,ValidationException,27,73,0,2,3,16,2,8,2,7
+Common Exception Java,com.dev.common.exception,ResourceNotFoundException,0,73,0,0,0,12,0,5,0,5
+Common Exception Java,com.dev.common.exception,ErrorResponse,0,164,0,2,0,56,0,17,0,16
+Common Exception Java,com.dev.common.exception,UnauthorizedException,0,34,0,0,0,7,0,4,0,4
+Common Exception Java,com.dev.common.exception,ErrorResponse.Builder,16,48,0,0,4,13,2,5,2,5
+Common Exception Java,com.dev.common.exception,RateLimitExceededException,0,69,0,0,0,16,0,6,0,6

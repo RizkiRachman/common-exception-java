@@ -1,0 +1,8 @@
+com/dev/common/exception/RateLimitExceededException.class
+com/dev/common/exception/BusinessException.class
+com/dev/common/exception/ValidationException.class
+com/dev/common/exception/ErrorResponse$Builder.class
+com/dev/common/exception/UnauthorizedException.class
+com/dev/common/exception/ErrorResponse.class
+com/dev/common/exception/ResourceNotFoundException.class
+com/dev/common/exception/ValidationException$ValidationError.class

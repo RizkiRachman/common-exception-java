@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RateLimitExceededException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Common Exception Java</a> &gt; <a href="index.source.html" class="el_package">com.dev.common.exception</a> &gt; <span class="el_source">RateLimitExceededException.java</span></div><h1>RateLimitExceededException.java</h1><pre class="source lang-java linenums">package com.dev.common.exception;
+
+import java.io.Serializable;
+import java.util.Objects;
+
+/**
+ * Exception thrown when a rate limit has been exceeded.
+ *
+ * &lt;p&gt;This exception is framework-agnostic and can be used across different frameworks
+ * (Spring, Quarkus, Micronaut, etc.) to indicate that a rate limit has been exceeded.&lt;/p&gt;
+ *
+ * &lt;p&gt;&lt;strong&gt;Example usage:&lt;/strong&gt;&lt;/p&gt;
+ * &lt;pre&gt;{@code
+ * throw new RateLimitExceededException(&quot;Rate limit exceeded for API: users&quot;);
+ * throw new RateLimitExceededException(&quot;Too many requests&quot;, &quot;api-users&quot;, 60);
+ * }&lt;/pre&gt;
+ *
+ * @author Dev Team
+ * @version 1.0
+ * @since 1.0
+ */
+public class RateLimitExceededException extends BusinessException implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private static final String ERROR_CODE = &quot;RATE_LIMIT_EXCEEDED&quot;;
+    private static final int HTTP_STATUS = 429;
+
+    private final String limitType;
+    private final long retryAfterSeconds;
+
+    /**
+     * Constructs a new rate limit exception with the specified message.
+     *
+     * @param message the detail message
+     */
+    public RateLimitExceededException(String message) {
+<span class="fc" id="L38">        super(ERROR_CODE, message, HTTP_STATUS);</span>
+<span class="fc" id="L39">        this.limitType = &quot;default&quot;;</span>
+<span class="fc" id="L40">        this.retryAfterSeconds = 0;</span>
+<span class="fc" id="L41">    }</span>
+
+    /**
+     * Constructs a new rate limit exception with message and limit type.
+     *
+     * @param message   the detail message
+     * @param limitType the type of limit (e.g., &quot;api-users&quot;, &quot;requests-per-minute&quot;)
+     */
+    public RateLimitExceededException(String message, String limitType) {
+<span class="fc" id="L50">        super(ERROR_CODE, message, HTTP_STATUS);</span>
+<span class="fc" id="L51">        this.limitType = Objects.requireNonNull(limitType, &quot;limitType must not be null&quot;);</span>
+<span class="fc" id="L52">        this.retryAfterSeconds = 0;</span>
+<span class="fc" id="L53">    }</span>
+
+    /**
+     * Constructs a new rate limit exception with message, limit type, and retry after.
+     *
+     * @param message          the detail message
+     * @param limitType        the type of limit
+     * @param retryAfterSeconds seconds until the client can retry
+     */
+    public RateLimitExceededException(String message, String limitType, long retryAfterSeconds) {
+<span class="fc" id="L63">        super(ERROR_CODE, message, HTTP_STATUS);</span>
+<span class="fc" id="L64">        this.limitType = Objects.requireNonNull(limitType, &quot;limitType must not be null&quot;);</span>
+<span class="fc" id="L65">        this.retryAfterSeconds = retryAfterSeconds;</span>
+<span class="fc" id="L66">    }</span>
+
+    /**
+     * Returns the type of rate limit that was exceeded.
+     *
+     * @return the limit type
+     */
+    public String getLimitType() {
+<span class="fc" id="L74">        return limitType;</span>
+    }
+
+    /**
+     * Returns the number of seconds the client should wait before retrying.
+     *
+     * @return retry after seconds, or 0 if not specified
+     */
+    public long getRetryAfterSeconds() {
+<span class="fc" id="L83">        return retryAfterSeconds;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L88">        return String.format(&quot;RateLimitExceededException[limitType=%s, retryAfter=%ds, message=%s]&quot;,</span>
+<span class="fc" id="L89">                limitType, retryAfterSeconds, getMessage());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UnauthorizedException.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Common Exception Java</a> &gt; <a href="index.source.html" class="el_package">com.dev.common.exception</a> &gt; <span class="el_source">UnauthorizedException.java</span></div><h1>UnauthorizedException.java</h1><pre class="source lang-java linenums">package com.dev.common.exception;
+
+import java.io.Serializable;
+
+/**
+ * Exception thrown when authentication or authorization fails.
+ *
+ * &lt;p&gt;This exception can be used for both authentication failures (401) and
+ * authorization failures (403) depending on the scenario.&lt;/p&gt;
+ *
+ * &lt;p&gt;&lt;strong&gt;Example usage:&lt;/strong&gt;&lt;/p&gt;
+ * &lt;pre&gt;{@code
+ * // Authentication failure (401)
+ * throw new UnauthorizedException(&quot;Invalid credentials&quot;);
+ *
+ * // Authorization failure (403)
+ * throw new UnauthorizedException(&quot;Insufficient permissions&quot;, 403);
+ * }&lt;/pre&gt;
+ *
+ * @author Dev Team
+ * @version 1.0
+ * @since 1.0
+ */
+public class UnauthorizedException extends BusinessException implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private static final String ERROR_CODE = &quot;UNAUTHORIZED&quot;;
+    private static final int DEFAULT_HTTP_STATUS = 401;
+
+    /**
+     * Constructs a new unauthorized exception with the specified message.
+     *
+     * @param message the detail message
+     */
+    public UnauthorizedException(String message) {
+<span class="fc" id="L37">        super(ERROR_CODE, message, DEFAULT_HTTP_STATUS);</span>
+<span class="fc" id="L38">    }</span>
+
+    /**
+     * Constructs a new unauthorized exception with message and HTTP status.
+     *
+     * @param message    the detail message
+     * @param httpStatus the HTTP status code (401 for auth, 403 for forbidden)
+     */
+    public UnauthorizedException(String message, int httpStatus) {
+<span class="fc" id="L47">        super(ERROR_CODE, message, httpStatus);</span>
+<span class="fc" id="L48">    }</span>
+
+    /**
+     * Constructs a new unauthorized exception for forbidden access (403).
+     *
+     * @param message the detail message
+     * @return a new UnauthorizedException with 403 status
+     */
+    public static UnauthorizedException forbidden(String message) {
+<span class="fc" id="L57">        return new UnauthorizedException(message, 403);</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="fc" id="L62">        return String.format(&quot;UnauthorizedException[httpStatus=%d, message=%s]&quot;,</span>
+<span class="fc" id="L63">                getHttpStatus(), getMessage());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
