@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate comprehensive HTML test report from Maven Surefire XML results for Common Utils Java
+Generate comprehensive HTML test report from Maven Surefire XML results for Common Exception Java
 """
 
 import os
@@ -22,26 +22,26 @@ def categorize_test(test_name):
     categories = []
     name_lower = test_name.lower()
     
-    if 'string' in name_lower or 'text' in name_lower:
-        categories.append('string')
-    if 'page' in name_lower or 'pagination' in name_lower or 'pageable' in name_lower:
-        categories.append('pagination')
+    if 'business' in name_lower:
+        categories.append('business-exception')
+    if 'rate' in name_lower or 'limit' in name_lower:
+        categories.append('rate-limiting')
     if 'validation' in name_lower or 'validate' in name_lower:
         categories.append('validation')
-    if 'util' in name_lower or 'utils' in name_lower:
-        categories.append('utility')
-    if 'id' in name_lower or 'uuid' in name_lower or 'identifier' in name_lower:
-        categories.append('id-generation')
-    if 'email' in name_lower or 'phone' in name_lower or 'url' in name_lower:
-        categories.append('contact')
-    if 'mask' in name_lower or 'sanitize' in name_lower or 'escape' in name_lower:
-        categories.append('security')
-    if 'null' in name_lower or 'empty' in name_lower or 'blank' in name_lower:
+    if 'resource' in name_lower or 'notfound' in name_lower or 'not_found' in name_lower:
+        categories.append('resource-not-found')
+    if 'unauthorized' in name_lower or 'auth' in name_lower:
+        categories.append('authentication')
+    if 'error' in name_lower and 'response' in name_lower:
+        categories.append('error-response')
+    if 'null' in name_lower or 'empty' in name_lower:
         categories.append('null-safety')
-    if 'perform' in name_lower or 'bench' in name_lower or 'speed' in name_lower:
-        categories.append('performance')
-    if 'thread' in name_lower or 'concurrent' in name_lower:
-        categories.append('thread-safety')
+    if 'constructor' in name_lower:
+        categories.append('constructor')
+    if 'getter' in name_lower:
+        categories.append('getters')
+    if 'inherit' in name_lower:
+        categories.append('inheritance')
     if not categories:
         categories.append('other')
     
@@ -193,7 +193,7 @@ def generate_html_report(results, output_file):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Common Utils Java - Test Report</title>
+    <title>Common Exception Java - Test Report</title>
     <style>
         * {{
             margin: 0;
@@ -711,7 +711,7 @@ def generate_html_report(results, output_file):
     <div class="container">
         <div class="header">
             <h1>🧪 Test Report</h1>
-            <div class="subtitle">Common Utils Java - Native Java Utility Library</div>
+            <div class="subtitle">Common Exception Java - Framework-Agnostic Exception Library</div>
             <span class="status-badge">{status_text} - {summary['pass_rate']:.1f}% Pass Rate</span>
         </div>
         
@@ -897,7 +897,7 @@ def generate_html_report(results, output_file):
         
         <div class="timestamp">
             <p>Report generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
-            <p style="margin-top: 10px; font-size: 0.8em; color: #6b7280;">Native Java Library • Zero Dependencies • Thread-Safe</p>
+            <p style="margin-top: 10px; font-size: 0.8em; color: #6b7280;">Native Java Library • Zero Dependencies • Framework-Agnostic</p>
         </div>
         
         <div class="footer">
